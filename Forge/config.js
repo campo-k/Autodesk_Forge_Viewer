@@ -19,16 +19,15 @@
 'use strict'; // http://www.w3schools.com/js/js_strict.asp
 
 module.exports = {
-  // Autodesk Forge configuration
-  forge: {
-    // Required scopes for your application on server-side
-    scope: ['data:read', 'data:write', 'data:create', 'data:search'],
-    // this this callback URL when creating your client ID and secret
-    callbackURL: process.env.FORGE_CALLBACK_URL || 'http://dev.aftest.com:3005/api/callback',
-    // credentials
-    credentials: {
-      client_id: process.env.FORGE_CLIENT_ID || 'JlvxOz7sEUpg9iux6JBN2E6r0Q8YAiOr',
-      client_secret: process.env.FORGE_CLIENT_SECRET || '0BR05VAvAhQW5Sbo'
-    }
-  }
+	// Autodesk Forge configuration
+	// Required scopes for your application on server-side
+	scope: ['data:read', 'data:write', 'data:create', 'data:search'],
+	// this this callback URL when creating your client ID and secret
+	callbackURL: 'http://dev.aftest.com:3005/api/callback',
+	// credentials
+	credentials: {
+	  client_id: 'JlvxOz7sEUpg9iux6JBN2E6r0Q8YAiOr',
+	  client_secret: '0BR05VAvAhQW5Sbo'
+	},
+	bucket_key: 'test_' + 'JlvxOz7sEUpg9iux6JBN2E6r0Q8YAiOr'.toLowerCase()
 };

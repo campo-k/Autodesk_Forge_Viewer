@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Autodesk Forge <%= title %></title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <style>
+	div.button {
+		display: inline-block;
+		padding: 5px 10px;
+		margin-top: 10px;
+		margin-right: 5px;
+		border-radius: 5px;
+		background: blue;
+		color:white;
+		cursor: pointer;
+	}
+    </style>
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"
+	integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+	crossorigin="anonymous"></script>
+  </head>
+  <body>
+    <h1><%= title %></h1>
+    <p>Welcome to <%= title %></p>
+
+    <form action="" method="post" enctype="multipart/form-data" >
+        <input type="file" name="files" onchange="this.form.submit()" />
+    </form>
+
+    <div onclick="getHubs()" class="button">get hubs</div>
+
+    <p><%= uploaded %></p>
+    <p class=OAuth></p>
+    <p class=hubs></p>
+  </body>
+  <script>
+	$(document).ready(function() {
+		$.ajax({
+			url: '/api/profile',
+			success: function(profile) {
+				$('p.OAuth').text(JSON.stringify(profile));
+			},
+			error: function(err) {
+				$.ajax({
+					url: 'api/signin',
+					success: function(url) {
+						location.href = url;
+					}
+				});
+			}
+		});
+	});
+
+	function getHubs() {
+		$.ajax({
+			url: '/api/getHubs',
+			success: function(data) {
+				$('p.hubs').text(JSON.stringify(data));
+			},
+			error: function(err) {
+				$('p.hubs').text(JSON.stringify(err));
+			}
+		});
+	}
+  </script>
+</html>

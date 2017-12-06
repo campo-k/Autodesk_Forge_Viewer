@@ -1,65 +1,43 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title><%= title %></title>
+    <title>Autodesk Forge <%= title %></title>
     <link rel='stylesheet' href='/stylesheets/style.css' />
-    <style>
-	div.button {
-		display: inline-block;
-		padding: 5px 10px;
-		margin-top: 10px;
-		border-radius: 5px;
-		background: blue;
-		color:white;
-		cursor: pointer;
-	}
-    </style>
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://developer.api.autodesk.com/modelderivative/v2/viewers/style.min.css?v=v3.1.*" type="text/css">
     <script src="https://code.jquery.com/jquery-3.2.1.min.js"
 	integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
 	crossorigin="anonymous"></script>
+    <script src="https://developer.api.autodesk.com/modelderivative/v2/viewers/three.min.js?v=v3.1.*"></script>
+    <script src="https://developer.api.autodesk.com/modelderivative/v2/viewers/viewer3D.min.js?v=v3.1.*"></script>
   </head>
   <body>
-    <h1><%= title %></h1>
-    <p>Welcome to <%= title %></p>
+    <h1>Autodesk Forge  <%= title %></h1>
 
-    <form action="" method="post" enctype="multipart/form-data" >
-        <input type="file" name="files" onchange="this.form.submit()" />
+    <form action="" method="post" enctype="multipart/form-data" style="display: none">
+        <input class="uploadFile" type="file" name="files" onchange="uploadItem(this)" />
     </form>
 
-    <div onclick="getHubs()" class="button">get hubs</div>
+    <div class="form">
+	<div onclick="putItem()" class="button">Uplaod Item</div>
+	<div onclick="getObjects()" class="button">Refresh Objects</div>
+    </div>
+    <div class="form status-box">
+	<span>status: </span>
+	<span class="detail"><%= status %></span>
+    </div>
 
-    <p><%= uploaded %></p>
-    <p class=OAuth></p>
-    <p class=hubs></p>
+    <div class="form">
+	<ul id="object_list"></ul>
+    </div>
+
+    <div class="form">
+	<div class="center-block" id="viewerDiv"></div>
+    </div>
+    <div id="progress" class="displayNone">
+	<i class="fa fa-refresh fa-spin fa-3x fa-fw"></i>
+    </div>
+
+    <script src="/javascripts/index.js"></script>
   </body>
-  <script>
-	$(document).ready(function() {
-		$.ajax({
-			url: '/api/profile',
-			success: function(profile) {
-				$('p.OAuth').text(JSON.stringify(profile));
-			},
-			error: function(err) {
-				$.ajax({
-					url: 'api/signin',
-					success: function(url) {
-						location.href = url;
-					}
-				});
-			}
-		});
-	});
-
-	function getHubs() {
-		$.ajax({
-			url: '/api/getHubs',
-			success: function(data) {
-				$('p.hubs').text(JSON.stringify(data));
-			},
-			error: function(err) {
-				$('p.hubs').text(JSON.stringify(err));
-			}
-		});
-	}
-  </script>
 </html>

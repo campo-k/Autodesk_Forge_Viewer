@@ -10,8 +10,8 @@ var app = express();
 
 
 // export routers
-var apis = require('./routes/apis');
-var index = require('./routes/index');
+var apis = require('./routes/apisA360');
+var index = require('./routes/indexA360');
 var users = require('./routes/users');
 
 
@@ -37,6 +37,7 @@ app.use(cookieSession({
 
 // router
 app.use('/', index);
+app.use('/api', apis);
 app.use('/users', users);
 
 
